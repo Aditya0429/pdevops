@@ -1,0 +1,10 @@
+---
+ - hosts: dbserver
+   remote_user: ec2-user
+   tasks:
+   - name: get  the uptime and OS details of server
+     command: hostname 
+     register: cmd_content
+   - name: print uptime 
+     debug: 
+       msg: "{{ cmd_content.stdout }}"

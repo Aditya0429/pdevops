@@ -1,0 +1,39 @@
+---
+- hosts: webservers
+  remote_user: ec2-user
+  become: yes
+  become_method: sudo
+  vars: 
+    - MyMessage: "welcome to ansible world!"
+    - DbMessage: "Hello from MongoDB!"
+    - SqlMessage: "Hello from SQL    goDB!"
+    - LolMessage: "mamammamamHello from lolllllllllll!"
+
+
+  tasks:
+    - name: Copy the nginx repo to servers
+      copy: 
+        src: /home/aditya6/git/nginx.repo
+        dest: /etc/yum.repos.d/nginx.repo
+    - name: update Cenots
+      yum:
+        name: '*'
+        state: latest
+    - name: insatall the nginx
+      yum:    
+        name: nginx
+        state: present  
+    - name: Nginx setup
+      template: 
+        src: /home/aditya6/git/index.html.j2
+        dest: /usr/share/nginx/html/index.html
+      notify:
+       - restart Nginx
+         
+  handlers: 
+    - name: restart Nginx
+      service:
+        name: nginx
+        state: restarted
+  
+    

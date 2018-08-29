@@ -1,0 +1,11 @@
+---
+- hosts: dbserver
+  remote_user: ec2-user
+  become: yes
+  tasks:
+    - name: execute command on linux box
+      command: hostname
+      register: cmd_content
+    - name: print command result contents
+      debug:
+        msg: "{{ cmd_content }}"

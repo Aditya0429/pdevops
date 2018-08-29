@@ -1,0 +1,8 @@
+- name: Print linux distribution and version
+  hosts: dbserver
+  remote_user: ec2-user
+  tasks:
+    - name: capture output of id command
+      command: uname -a
+      register: login
+    - debug: msg="{{ login.stdout }}"

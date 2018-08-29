@@ -1,0 +1,15 @@
+---
+- hosts:
+    - all
+  remote_user: ec2-user
+  sudo: yes
+  tasks:
+
+    - group: name=sysadmins state=present
+    - lineinfile: backup=yes dest=/etc/sudoers insertafter="^root" line="%sysadmins ALL=(ALL) NOPASSWD:ALL"
+
+# Sysadmin account - Kumar, Aditya (aditya)
+    - user: name=aditya6 shell=/bin/bash groups=sysadmins,wheel
+    - authorized_key: user=aditya6 key="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAhVyIPDN98Cnn8mommZ4Wj0IkkY+hb7zkGkDb9NCqHk3QqxUZttSgY0otkxaE0XDloXI0M9A8l+rMyw7OfRZrEFx91eDdoQsazupIt1+FYA4G9PQMbbLOe0jgYEscOpLgj7Z1qzSXCWhWbOb7018gZKruJ2YKnQS1oaxb8n2cZW8= rsa-key-20171124"
+
+         

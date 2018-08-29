@@ -1,0 +1,13 @@
+---
+- hosts: webservers
+  remote_user: aditya6
+  sudo: yes
+  tasks:
+    - name: install the latest version of Apache
+      yum:
+        name: httpd
+        state: latest
+    - name: Make sure a service is running
+      systemd:
+        state: started
+        name: httpd

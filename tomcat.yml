@@ -1,0 +1,15 @@
+---
+- hosts: webservers
+  remote_user: aditya6
+  become: yes
+  tasks:
+    - name: install apache server
+      yum:
+        name: httpd
+        state: present
+
+    - name: starte the apache service and enable
+      systemd:
+        name: httpd
+        state: started
+        enabled: yes
